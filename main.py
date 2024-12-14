@@ -15,9 +15,9 @@ import numpy as np
 # config var
 video_convert = True
 
-path = 'C:/Users/rafae/Documents/prog/python/visual/totoro.webp'
+path = '' #path of the image
 
-wanted_height = 70
+wanted_height = 70 #wanted mesure/size
 wanted_width = 140
 
 
@@ -35,7 +35,7 @@ used_gscale = gscale
 divider = 255 / len(used_gscale)
 
 
-
+#convert the image/video in ascii characters
 def img_ascii_convertor(image_to_convert):
     darkness_array = []
     height, width, channels = image_to_convert.shape
@@ -65,10 +65,10 @@ def img_ascii_convertor(image_to_convert):
                     index = int(block_mean // divider)
                     index = min(index, len(used_gscale) - 1)
                     darkness_array.append(used_gscale[index])
-            # else:
-                # print(f"Block has invalid size: {block.shape}")
+
     return display_ascii(darkness_array,wanted_height,wanted_width)
 
+#this make the ascii art in the right way
 def display_ascii(ascii_array, rows, cols):
     ascii_str = ""
     for i in range(rows):
@@ -93,6 +93,3 @@ while video_convert == True:
     else:
         print("No image detected. Please try again.")
         break
-
-
-# debug
