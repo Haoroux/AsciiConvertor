@@ -8,13 +8,12 @@
 
 # importing libs
 from cv2 import VideoCapture
-from pynput.keyboard import *
 import cv2 as cv
 import numpy as np
 
 
 # config var
-video_convert = False
+video_convert = True
 
 path = 'C:/Users/rafae/Documents/prog/python/visual/totoro.webp'
 
@@ -93,9 +92,6 @@ while video_convert == True:
         print(img_ascii_convertor(v_image))
     else:
         print("No image detected. Please try again.")
-        break
-
-    if cv.waitKey(1) & 0xFF == ord('q'):
         break
 
 
