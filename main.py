@@ -13,7 +13,6 @@ import numpy as np
 
 
 # var
-cam = VideoCapture(0, cv.CAP_DSHOW)
 
 # arrays
 gscale = ' .:-=+*#%@'
@@ -29,9 +28,11 @@ def start_conf():
     wanted_width = int(input("what width ?\n"))
 
     if convertor_type == 1:
+        cam = VideoCapture(0, cv.CAP_DSHOW)
+
         while True:
-            result, v_image = cam.read()
-    
+            result, ov_image = cam.read()
+            v_image = cv.cvtColor(ov_image, cv.COLOR_BGR2GRAY) 
             if result:
                 print(img_ascii_convertor(v_image,wanted_height,wanted_width))
             else:
@@ -53,7 +54,7 @@ def start_conf():
         save_option = input("would you like to save it ? (y or n)\n")
         if save_option == "y":
             with open("ascii_art.txt", "w") as file:
-                file.write(img_ascii_convertor(gray_image))
+                file.write(img_ascii_convertor(gray_image,wanted_height,wanted_width))
         else :
             print("restarting...")
             start_conf()
