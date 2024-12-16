@@ -12,20 +12,8 @@ import cv2 as cv
 import numpy as np
 
 
-# config var
-video_convert = True
-
-path = '' #path of the image
-
-wanted_height = 70 #wanted mesure/size
-wanted_width = 140
-
-
-cam = VideoCapture(0, cv.CAP_DSHOW)
 # var
-
-
-
+cam = VideoCapture(0, cv.CAP_DSHOW)
 
 # arrays
 gscale = ' .:-=+*#%@'
@@ -35,10 +23,49 @@ used_gscale = gscale
 divider = 255 / len(used_gscale)
 
 
+def start_conf():
+    convertor_type = int(input("what would you like to convert ? \n 1: your cam \n 2: an image\n"))
+    wanted_height = int(input("what height ?\n")) #wanted mesure/size
+    wanted_width = int(input("what width ?\n"))
+
+    if convertor_type == 1:
+        while True:
+            result, v_image = cam.read()
+    
+            if result:
+                print(img_ascii_convertor(v_image,wanted_height,wanted_width))
+            else:
+                print("No image detected. Please try again.")
+                break
+
+    elif convertor_type == 2:
+        path = input("please paste the path of the image\n").replace("\\", "/").replace('"', '') #path of the image
+        # path = "C:/Users/rafae/Documents/prog/python/visual/totoro.webp"
+        try:
+            image = cv.imread(path)
+            gray_image = cv.cvtColor(image, cv.COLOR_BGR2GRAY)  # rend l’image grise
+        except:
+            print("It seems that an unexpected error occured, are you sure "+ str(path) + "is the correct path")
+            path = input("please paste the path of the image\n").replace("\\", "/").replace('"', '') #path of the image
+            
+        print(img_ascii_convertor(gray_image,wanted_height,wanted_width))
+
+        save_option = input("would you like to save it ? (y or n)\n")
+        if save_option == "y":
+            with open("ascii_art.txt", "w") as file:
+                file.write(img_ascii_convertor(gray_image))
+        else :
+            print("restarting...")
+            start_conf()
+    else: 
+        convertor_type = input("what would you like to convert ? \n 1: your cam \n 2:an image\n")
+
+
 #convert the image/video in ascii characters
-def img_ascii_convertor(image_to_convert):
+def img_ascii_convertor(image_to_convert,wanted_height,wanted_width):
+
     darkness_array = []
-    height, width, channels = image_to_convert.shape
+    height, width = image_to_convert.shape
 
     pixel_height = height // wanted_height
     pixel_width = width // wanted_width
@@ -76,20 +103,4 @@ def display_ascii(ascii_array, rows, cols):
         ascii_str += ''.join(ascii_line_array) + '\n'
     return ascii_str
 
-
-if video_convert == False:
-    image = cv.imread(path)
-    gray_image = cv.cvtColor(image, cv.COLOR_BGR2GRAY)  # rend l’image grise
-    print(img_ascii_convertor(image))
-    with open("ascii_art.txt", "w") as file:
-        file.write(img_ascii_convertor(image))
-
-
-while video_convert == True:
-    result, v_image = cam.read()
-    
-    if result:
-        print(img_ascii_convertor(v_image))
-    else:
-        print("No image detected. Please try again.")
-        break
+start_conf()
