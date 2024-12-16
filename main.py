@@ -15,17 +15,22 @@ import numpy as np
 # var
 
 # arrays
-gscale = ' .:-=+*#%@'
-gscale2 = " .',;:clodxkO0KXNWM"
+gscales = [""" .:-=+*#%@""",
+           """ .',;:clodxkO0KXNWM""",
+           """ .`:,;'_^"\></-!~=)(|j?}{ ][ti+l7v1%yrfcJ32uIC$zwo96sngaT5qpkYVOL40&mG8*xhedbZUSAQPFDXWK#RNEHBM@"""
+           ]
 
-used_gscale = gscale
-divider = 255 / len(used_gscale)
 
 
 def start_conf():
     convertor_type = int(input("what would you like to convert ? \n 1: your cam \n 2: an image\n"))
-    wanted_height = int(input("what height ?\n")) #wanted mesure/size
-    wanted_width = int(input("what width ?\n"))
+    while convertor_type != 1 or convertor_type !=2:
+        print("Bro... do you know that you don't look smarter by trying to put something other than the choice offered???? SO")
+        convertor_type = int(input("what would you like to convert ? \n 1: your cam \n 2: an image\n"))
+        
+    wanted_height = int(input("How many lines ?\n")) #wanted mesure/size
+    wanted_width = int(input("How many columns ?\n"))
+    used_gscale = gscales[int(input("Which gray shade do you want ? \n 1: " + gscales[0] + "\n 2: " + gscales[1] + "\n 3: " + gscales[2] + "\n"))-1]
 
     if convertor_type == 1:
         cam = VideoCapture(0, cv.CAP_DSHOW)
@@ -34,7 +39,7 @@ def start_conf():
             result, ov_image = cam.read()
             v_image = cv.cvtColor(ov_image, cv.COLOR_BGR2GRAY) 
             if result:
-                print(img_ascii_convertor(v_image,wanted_height,wanted_width))
+                print(img_ascii_convertor(v_image,wanted_height,wanted_width,used_gscale))
             else:
                 print("No image detected. Please try again.")
                 break
@@ -49,22 +54,21 @@ def start_conf():
             print("It seems that an unexpected error occured, are you sure "+ str(path) + "is the correct path")
             path = input("please paste the path of the image\n").replace("\\", "/").replace('"', '') #path of the image
             
-        print(img_ascii_convertor(gray_image,wanted_height,wanted_width))
+        print(img_ascii_convertor(gray_image,wanted_height,wanted_width,used_gscale))
 
         save_option = input("would you like to save it ? (y or n)\n")
         if save_option == "y":
             with open("ascii_art.txt", "w") as file:
-                file.write(img_ascii_convertor(gray_image,wanted_height,wanted_width))
+                print("downloading")
+                file.write(img_ascii_convertor(gray_image,wanted_height,wanted_width,used_gscale))
+                print("done. See ya!")
         else :
             print("restarting...")
             start_conf()
-    else: 
-        convertor_type = input("what would you like to convert ? \n 1: your cam \n 2:an image\n")
-
 
 #convert the image/video in ascii characters
-def img_ascii_convertor(image_to_convert,wanted_height,wanted_width):
-
+def img_ascii_convertor(image_to_convert,wanted_height,wanted_width, used_gscale):
+    divider = 255 / len(used_gscale)
     darkness_array = []
     height, width = image_to_convert.shape
 
