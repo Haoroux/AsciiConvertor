@@ -1,9 +1,3 @@
-#Instructions
-#1)If you’re converting your webcam video then put video_convert to True
-#   Then you have to put an image path into the path variable
-#2)you have to select the size you want for your ascii art with the variables wanted_height and wanted_width
-#3)optional but you can select wich grayscale you’re using for your art by changing the variable used_gscale by gscale2
-
 #the video convertor will be added in near future 
 
 # importing libs
@@ -109,3 +103,22 @@ def display_ascii(ascii_array, rows, cols):
     return ascii_str
 
 start_conf()
+
+
+
+#=================================================================================================================#
+#  __  __           _        _             _    _                                                                 #
+# |  \/  |         | |      | |           | |  | |                                                                #
+# | \  / | __ _  __| | ___  | |__  _   _  | |__| | __ _  ___  _ __ ___  _   ___  __                               #
+# | |\/| |/ _` |/ _` |/ _ \ | '_ \| | | | |  __  |/ _` |/ _ \| '__/ _ \| | | \ \/ /                               #
+# | |  | | (_| | (_| |  __/ | |_) | |_| | | |  | | (_| | (_) | | | (_) | |_| |>  <                                #
+# |_|  |_|\__,_|\__,_|\___| |_.__/ \__, | |_|  |_|\__,_|\___/|_|  \___/ \__,_/_/\_\                               #
+#                                   __/ |                                                                         #
+#                                  |___/                                                                          #
+#                                                                                                                 #
+#-----------------------------------------------------------------------------------------------------------------#
+#                                                                                                                 #
+#I would like to thanks you to use my program.                                                                    #
+#If you want to use it in one of your program you can as soon as if you post it you credit me, thanks!            #
+#https://github.com/Haoroux/AsciiConvertor                                                                        #
+#=================================================================================================================#
